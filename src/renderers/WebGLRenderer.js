@@ -1,4 +1,7 @@
 import {
+	BackSide,
+	DoubleSide,
+	FrontSide,
 	RGBAFormat,
 	HalfFloatType,
 	FloatType,
@@ -51,9 +54,7 @@ function createCanvasElement() {
 
 }
 
-function WebGLRenderer( parameters ) {
-
-	parameters = parameters || {};
+function WebGLRenderer( parameters = {} ) {
 
 	const _canvas = parameters.canvas !== undefined ? parameters.canvas : createCanvasElement(),
 		_context = parameters.context !== undefined ? parameters.context : null,
@@ -1358,7 +1359,23 @@ function WebGLRenderer( parameters ) {
 
 		} else {
 
-			_this.renderBufferDirect( camera, scene, geometry, material, object, group );
+			if ( material.transparent === true && material.side === DoubleSide ) {
+
+				material.side = BackSide;
+				material.needsUpdate = true;
+				_this.renderBufferDirect( camera, scene, geometry, material, object, group );
+
+				material.side = FrontSide;
+				material.needsUpdate = true;
+				_this.renderBufferDirect( camera, scene, geometry, material, object, group );
+
+				material.side = DoubleSide;
+
+			} else {
+
+				_this.renderBufferDirect( camera, scene, geometry, material, object, group );
+
+			}
 
 		}
 
