@@ -14,4 +14,4 @@ jobs:
         server: h2870922.stratoserver.net
         username: u2870922
         password: ${{ secrets.ZAUBARTOURS_FTP_PASSWORD }}
-        server-dir: /htdocs/testing/components/
+        server-dir: /htdocs/testing/components/three/
