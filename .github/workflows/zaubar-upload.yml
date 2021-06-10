@@ -2,7 +2,7 @@ on: push
 name: 🚀 Upload threejs dependency
 jobs:
   web-deploy:
-    name: 🎉 Deploy
+    name: Upload the three dependency
     runs-on: ubuntu-latest
     steps:
     - name: 🚚 Get latest code
